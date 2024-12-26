@@ -99,6 +99,16 @@ action_menu(struct sc_input_manager *im, enum sc_action action) {
     send_keycode(im, AKEYCODE_MENU, action, "MENU");
 }
 
+static inline void
+action_dpad_left(struct sc_input_manager *im, enum sc_action action) {
+    send_keycode(im, AKEYCODE_DPAD_LEFT, action, "DPAD_LEFT");
+}
+
+static inline void
+action_dpad_right(struct sc_input_manager *im, enum sc_action action) {
+    send_keycode(im, AKEYCODE_DPAD_RIGHT, action, "DPAD_RIGHT");
+}
+
 // turn the screen on if it was off, press BACK otherwise
 // If the screen is off, it is turned on only on ACTION_DOWN
 static void
@@ -743,7 +753,7 @@ sc_input_manager_process_mouse_button(struct sc_input_manager *im,
                                               : &im->mouse_bindings.sec;
         enum sc_mouse_binding binding =
             sc_input_manager_get_binding(bindings, event->button);
-        assert(binding != SC_MOUSE_BINDING_AUTO);
+        assert(binding != SC_MOUSE_BINDING_AUTO);\
         switch (binding) {
             case SC_MOUSE_BINDING_DISABLED:
                 // ignore click
@@ -760,16 +770,12 @@ sc_input_manager_process_mouse_button(struct sc_input_manager *im,
                 return;
             case SC_MOUSE_BINDING_APP_SWITCH:
                 if (im->kp) {
-                    action_app_switch(im, action);
+                    action_dpad_right(im, action);
                 }
                 return;
             case SC_MOUSE_BINDING_EXPAND_NOTIFICATION_PANEL:
-                if (down) {
-                    if (event->clicks < 2) {
-                        expand_notification_panel(im);
-                    } else {
-                        expand_settings_panel(im);
-                    }
+                if (im->kp) {
+                    action_dpad_left(im, action);
                 }
                 return;
             default:
