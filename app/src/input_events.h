@@ -9,7 +9,6 @@
 #include <SDL2/SDL_events.h>
 
 #include "coords.h"
-#include "options.h"
 
 /* The representation of input events in scrcpy is very close to the SDL API,
  * for simplicity.
@@ -394,6 +393,8 @@ struct sc_mouse_scroll_event {
     struct sc_position position;
     float hscroll;
     float vscroll;
+    int32_t hscroll_int;
+    int32_t vscroll_int;
     uint8_t buttons_state; // bitwise-OR of sc_mouse_button values
 };
 

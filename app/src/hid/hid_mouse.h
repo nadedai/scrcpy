@@ -3,8 +3,6 @@
 
 #include "common.h"
 
-#include <stdbool.h>
-
 #include "hid/hid_event.h"
 #include "input_events.h"
 
@@ -24,7 +22,7 @@ void
 sc_hid_mouse_generate_input_from_click(struct sc_hid_input *hid_input,
                                     const struct sc_mouse_click_event *event);
 
-void
+bool
 sc_hid_mouse_generate_input_from_scroll(struct sc_hid_input *hid_input,
                                     const struct sc_mouse_scroll_event *event);
 
